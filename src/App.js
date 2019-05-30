@@ -4,10 +4,10 @@ import DisplayComponent from './DisplayComponent';
 
 const initialState = {
   components: [
-    {name: 'Component'},
-    {name: 'Component'},
-    {name: 'Component'},
-    {name: 'Component'},
+    {name: 'Component', index: 0},
+    {name: 'Component', index: 1},
+    {name: 'Component', index: 2},
+    {name: 'Component', index: 3},
     ]
 };
 
@@ -24,23 +24,29 @@ export default class App extends React.Component {
   }
   addComponent = () => {
     const components = this.state.components;
-    components.push(component);
-    this.setState({component: component});
+    components.push({...component, index: components.length ? (components[components.length - 1].index + 1) : 0});
+    this.setState({component: components});
   };
-  removeComponent = () => {
+  removeLastComponent = () => {
     if (!this.state.components.length)
       return;
     const components = this.state.components;
     components.pop();
-    this.setState({component: component});
+    this.setState({component: components});
+  };
+  removeFirstComponent = () => {
+    if (!this.state.components.length)
+      return;
+    const components = this.state.components.shift();
+    this.setState({component: components});
   };
   render() {
     return (
       <div style={{textAlign: 'center'}}>
-        <ButtonComponent add={this.addComponent} remove={this.removeComponent}/>
+        <ButtonComponent add={this.addComponent} removeLast={this.removeLastComponent} removeFirst={this.removeFirstComponent}/>
         <br />
         {this.state.components.map((item, index) =>
-          <DisplayComponent name={item.name} index={index}/>
+          <DisplayComponent name={item.name} index={item.index} key={index}/>
         )}
       </div>
     );
