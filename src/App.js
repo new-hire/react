@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+const initialState = {
+  displayName: 'defaultValue'
+};
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = initialState;
+  }
+  componentDidMount() {
+  }
+  componentWillUnmount() {
+  }
+  handleSubmit = () => {
+    this.setState({displayName: this.displayName.value});
+  };
+  render() {
+    return (
+      <div style={{textAlign: 'center'}}>
+        Welcome {this.state.displayName}
+        <br />
+        <input type="text" ref={r => this.displayName = r} name="displayName" maxLength={50} style={{width: '30%'}}/>
+        <br />
+        <button type="button" style={{width: '100px'}} onClick={this.handleSubmit}>{"submit"}</button>
+      </div>
+    );
+  }
 }
-
-export default App;
