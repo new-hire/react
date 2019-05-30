@@ -1,10 +1,17 @@
 import React from 'react';
-import InputComponent from './InputComponent';
+import ButtonComponent from './ButtonComponent';
 import DisplayComponent from './DisplayComponent';
 
 const initialState = {
-  displayName: 'defaultValue'
+  components: [
+    {name: 'Component'},
+    {name: 'Component'},
+    {name: 'Component'},
+    {name: 'Component'},
+    ]
 };
+
+const component = {name: 'New Component'};
 
 export default class App extends React.Component {
   constructor(props) {
@@ -15,15 +22,26 @@ export default class App extends React.Component {
   }
   componentWillUnmount() {
   }
-  setDisplayName = (displayName) => {
-    this.setState({...displayName});
+  addComponent = () => {
+    const components = this.state.components;
+    components.push(component);
+    this.setState({component: component});
+  };
+  removeComponent = () => {
+    if (!this.state.components.length)
+      return;
+    const components = this.state.components;
+    components.pop();
+    this.setState({component: component});
   };
   render() {
     return (
       <div style={{textAlign: 'center'}}>
-        <DisplayComponent displayName={this.state.displayName}/>
+        <ButtonComponent add={this.addComponent} remove={this.removeComponent}/>
         <br />
-        <InputComponent setDisplayName={this.setDisplayName}/>
+        {this.state.components.map((item, index) =>
+          <DisplayComponent name={item.name} index={index}/>
+        )}
       </div>
     );
   }
