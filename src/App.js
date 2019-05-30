@@ -1,4 +1,7 @@
 import React from 'react';
+import InputComponent from './InputComponent';
+import DisplayComponent from './DisplayComponent';
+
 const initialState = {
   displayName: 'defaultValue'
 };
@@ -12,17 +15,15 @@ export default class App extends React.Component {
   }
   componentWillUnmount() {
   }
-  handleSubmit = () => {
-    this.setState({displayName: this.displayName.value});
+  setDisplayName = (displayName) => {
+    this.setState({...displayName});
   };
   render() {
     return (
       <div style={{textAlign: 'center'}}>
-        Welcome {this.state.displayName}
+        <DisplayComponent displayName={this.state.displayName}/>
         <br />
-        <input type="text" ref={r => this.displayName = r} name="displayName" maxLength={50} style={{width: '30%'}}/>
-        <br />
-        <button type="button" style={{width: '100px'}} onClick={this.handleSubmit}>{"submit"}</button>
+        <InputComponent setDisplayName={this.setDisplayName}/>
       </div>
     );
   }
