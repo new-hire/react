@@ -25,14 +25,14 @@ export default class App extends React.Component {
   addComponent = () => {
     const components = this.state.components;
     components.push(component);
-    this.setState({component: component});
+    this.setState({component: components});
   };
   removeComponent = () => {
     if (!this.state.components.length)
       return;
     const components = this.state.components;
     components.pop();
-    this.setState({component: component});
+    this.setState({component: components});
   };
   render() {
     return (
