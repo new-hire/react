@@ -5,7 +5,6 @@ export default class DisplayComponent extends React.Component {
   componentWillUnmount() {
   }
   render() {
-    console.log(this.props.item);
     return (
       <div style={{width: '50%', margin: '10px auto', borderStyle: 'dashed'}}>
         {

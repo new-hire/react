@@ -16,7 +16,6 @@ export default withRouter(class NewPostComponent extends React.Component {
   }
   handleSubmit = () => {
     const postData = {title: this.title.value, content: this.content.value, imageUrl: this.state.file};
-    console.log(postData);
     this.props.addComponent(postData);
     this.props.history.push('/');
   };
