@@ -8,6 +8,8 @@ export default class UploadImage extends React.Component {
   handleFile = e => {
     const {callback} = this.props;
     const file = e.target.files[0];
+    if (!file)
+      return;
     if (file.type.indexOf('image/png') === -1 && file.type.indexOf('image/jpeg') === -1) {
       return;
     }
