@@ -62,7 +62,7 @@ export default class App extends React.Component {
           Error Message: {this.state.errorMessage}
         </div>
         }
-        {<video autoPlay={true} id="videoElement" style={{display: this.state.error ? 'none' : 'block', margin: 'auto'}}/>}
+        {<video autoPlay={true} id="videoElement" style={{display: this.state.error ? 'none' : 'block', margin: 'auto', width: '800px', height: '450px'}}/>}
         {!this.state.error &&
         <div>
           {!this.state.pause &&
