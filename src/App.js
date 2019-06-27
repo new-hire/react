@@ -3,7 +3,9 @@ import Webcam from './component/webcam';
 
 const initialState = {
   loaded: false,
-  pause: false
+  pause: false,
+  error: false,
+  errorMessage: ''
 };
 
 export default class App extends React.Component {
@@ -21,10 +23,19 @@ export default class App extends React.Component {
 
   successCallback = () => {
     console.log('got a webcam stream!!');
+    this.setState(ps => ({
+      ...ps,
+      error: false
+    }));
   };
 
   errorCallback = (error) => {
     console.log('error to get a webcam stream!! message: ', error);
+    this.setState(ps => ({
+      ...ps,
+      error: true,
+      errorMessage: error
+    }));
   };
 
   releaseStream = () => {
@@ -46,11 +57,20 @@ export default class App extends React.Component {
   render() {
     return (
       <div style={{textAlign: 'center'}}>
-        <video autoPlay={true} id="videoElement" />
+        {this.state.error &&
         <div>
-        {!this.state.pause && <button type="button" style={{width: '150px'}} onClick={this.releaseStream}>{"release stream"}</button>}
-        {this.state.pause && <button type="button" style={{width: '150px'}} onClick={this.createStream}>{"create stream"}</button>}
+          Error Message: {this.state.errorMessage}
         </div>
+        }
+        {<video autoPlay={true} id="videoElement" style={{display: this.state.error ? 'none' : 'block', margin: 'auto'}}/>}
+        {!this.state.error &&
+        <div>
+          {!this.state.pause &&
+          <button type="button" style={{width: '150px'}} onClick={this.releaseStream}>{"release stream"}</button>}
+          {this.state.pause &&
+          <button type="button" style={{width: '150px'}} onClick={this.createStream}>{"create stream"}</button>}
+        </div>
+        }
       </div>
     );
   }
