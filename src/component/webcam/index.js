@@ -10,7 +10,7 @@ export default class Webcam {
   getConstraint = () => {
     return {
       audio: false,
-      video: true
+      video: {width: {exact: 1920}, height: {exact: 1080}}
     };
   };
   init = () => {
